@@ -44,10 +44,11 @@ const renderCityAndContry = EventonClickCity => {
 
 
     const Citylist = ({cities, onClickCity, actions, data}) => {
-
-    const { onSetAllWeather } = actions
+    
+    // const { onSetAllWeather } = actions
     const { allWeather } = data
-    const {error,setError} = useCityList(cities, allWeather, onSetAllWeather)
+
+    const {error,setError} = useCityList(cities, allWeather, actions)
   
  
     const funcAux = renderCityAndContry(onClickCity)

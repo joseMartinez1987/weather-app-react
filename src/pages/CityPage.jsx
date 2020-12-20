@@ -18,15 +18,16 @@ const CityPage = ({actions, data}) => {
 
     const { allWeather, allChartData, allForecastItemList } = data
 
-    const { onSetAllWeather, onSetChartData, onSetForecastItemList } = actions
+    // const { onSetAllWeather, onSetChartData, onSetForecastItemList } = actions
 
 
-    const {city,contryCode } = useCityPage(allChartData, allForecastItemList, onSetChartData, onSetForecastItemList)
+
+    const {city,contryCode } = useCityPage(allChartData, allForecastItemList, actions)
 
     const cities = useMemo(() =>([{city,contryCode}]), [city, contryCode])
 
 
-    useCityList(cities, allWeather, onSetAllWeather)
+    useCityList(cities, allWeather, actions)
 
 
     const weather = allWeather[getCityCode(city,contryCode)]

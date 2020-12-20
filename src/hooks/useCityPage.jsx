@@ -9,7 +9,7 @@ import { getCityCode } from './../utils/utils'
 
 
 
-export const useCityPage = (allChartData, allForecastItemList, onSetChartData, onSetForecastItemList) => {
+export const useCityPage = (allChartData, allForecastItemList, actions) => {
 
 
     // const [chartData, setChartData] = useState(null);
@@ -28,13 +28,18 @@ export const useCityPage = (allChartData, allForecastItemList, onSetChartData, o
             const cityCode = getCityCode(city, contryCode)
             
             try {
-
+                     
                 const {data } = await axios.get(url)
                 const dataAux = getChartData(data)
                 const getForecastItemListAux = getForescastItemList(data)
 
-                onSetChartData({[cityCode] :dataAux})
-                onSetForecastItemList({ [cityCode] : getForecastItemListAux})
+
+                actions({type: 'SET_CHART_DATA',payload:{[cityCode] :dataAux} })
+
+                actions({type:'SET_FORECAST_ITEM_LIST', payload:{ [cityCode] : getForecastItemListAux}})
+
+                // onSetChartData({[cityCode] :dataAux})
+                // onSetForecastItemList({ [cityCode] : getForecastItemListAux})
 
             } catch (error) {
                 console.log(error)
@@ -48,7 +53,7 @@ export const useCityPage = (allChartData, allForecastItemList, onSetChartData, o
         }
 
 
-    },[city,contryCode,onSetChartData, onSetForecastItemList, allChartData, allForecastItemList])
+    },[city, allChartData, allForecastItemList,actions, contryCode])
 
 
     return { city,contryCode }

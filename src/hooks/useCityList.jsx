@@ -5,7 +5,7 @@ import  getAllWeather  from './../utils/transform/getAllWeather'
 import {getCityCode} from  '../utils/utils'
 
 
-const useCityList = (cities, allWeather,  onSetAllWeather) => {
+const useCityList = (cities, allWeather,  actions) => {
     
     // const [allWeather, setAllWeather] = useState({})
     const [error, setError ] = useState(null)
@@ -17,14 +17,20 @@ const useCityList = (cities, allWeather,  onSetAllWeather) => {
             const url = getWeatherUrl( {city, contryCode} )
             try {
                 
-                onSetAllWeather({[getCityCode(city,contryCode)] : {} })
+                // onSetAllWeather({[getCityCode(city,contryCode)] : {} })
+                actions({type:'SET_ALL_WEATHER', payload:{[getCityCode(city,contryCode)] : {} }})
 
+                debugger
                 const response = await axios.get(url)
+                
                 const allWeatherAux = getAllWeather(response, city, contryCode) 
                 
-                // setAllWeather(allWeather => ({...allWeather, ...allWeatherAux }))
 
-                onSetAllWeather(allWeatherAux )
+                // onSetAllWeather(allWeatherAux )
+                
+                actions({type:'SET_ALL_WEATHER', payload: allWeatherAux})
+
+
 
 
             } catch (err) {
@@ -47,14 +53,14 @@ const useCityList = (cities, allWeather,  onSetAllWeather) => {
         }
         
         cities.forEach(({city, contryCode}) => {
-
+            
             if(!allWeather[getCityCode(city,contryCode)]) {
                 setWeather(city, contryCode)
             }
         });
 
 
-    },[cities, allWeather, onSetAllWeather]) 
+    },[cities, actions, allWeather]) 
     
 
     return {error,setError }
