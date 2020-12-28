@@ -1,4 +1,4 @@
-import React, { useEffect, UseRef, useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import CityInfo from "../CityInfo"
 import Weather from "../Weather"
@@ -10,33 +10,43 @@ import useCityList from './../../hooks/useCityList'
 import { getCityCode } from './../../utils/utils'
 
 
+
+
+ 
+const CityListItem = React.memo( ( {city, contry, contryCode, EventonClickCity, weather} ) => {
+
+        return (
+            <ListItem button onClick={() => EventonClickCity(city,contryCode)}> 
+                <Grid container
+                justify="center" 
+                alignItems="center">
+                    <Grid item
+                    md={3}
+                    xs={12}>
+                        <CityInfo city={city} contry={contry} />
+                    </Grid>
+                    
+                    <Grid item
+                    md={4}
+                    xs={12}>
+                        <Weather temperature={weather && weather.temperature} state={weather && weather.state}/>       
+                    </Grid>
+
+                </Grid>
+            </ListItem>
+    )
+})
+
+
 const renderCityAndContry = EventonClickCity => {
 
     const renderCItyAndContryInternal = (CityAndContry, weather) => {
         console.log(weather)
 
-        const {city, contry,contryCode } = CityAndContry
+        const {city, contryCode } = CityAndContry
 
-        return (
-                <ListItem button key={getCityCode(city,contryCode )} onClick={() => EventonClickCity(city,contryCode)}> 
-                    <Grid container
-                    justify="center"
-                    alignItems="center">
-                        <Grid item
-                        md={3}
-                        xs={12}>
-                            <CityInfo city={city} contry={contry} />
-                        </Grid>
-                        
-                        <Grid item
-                        md={4}
-                        xs={12}>
-                            <Weather temperature={weather && weather.temperature} state={weather && weather.state}/>       
-                        </Grid>
-        
-                    </Grid>
-                </ListItem>
-        )
+        return <CityListItem key={getCityCode(city,contryCode )} EventonClickCity={EventonClickCity} weather={weather} {...CityAndContry} />
+
     }
 
     return renderCItyAndContryInternal;
@@ -80,4 +90,4 @@ Citylist.propTypes = {
     onClickCity:PropTypes.func.isRequired
 }
 
-export default Citylist
+export default React.memo(Citylist)

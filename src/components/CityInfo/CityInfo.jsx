@@ -6,7 +6,7 @@ const CityInfo = ({ city,contry }) => {
     return (
         <div>
             <Typography style={{display:'inline'}}  variant="h3">{city}, </Typography>
-            <Typography style={{display:'inline'}}  variant="h4">{contry}</Typography>
+            <Typography style={{display:'inline'}}  variant="h3">{contry}</Typography>
         </div>
     )
 }

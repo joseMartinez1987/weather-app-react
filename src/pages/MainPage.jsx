@@ -10,11 +10,11 @@ const MainPage = ({actions, data}) => {
 
     const history = useHistory();
 
-    const onClickHandle = (city,contryCode) => {
+    const onClickHandle = React.useCallback((city,contryCode) => {
         console.log(city,contryCode)
         //Allow switch the URL by programation
         history.push(`/city/${contryCode}/${city}`)
-    }
+    },[history])
 
     return (
         <AppFrame>

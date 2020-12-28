@@ -20,7 +20,7 @@ const useCityList = (cities, allWeather,  actions) => {
                 // onSetAllWeather({[getCityCode(city,contryCode)] : {} })
                 actions({type:'SET_ALL_WEATHER', payload:{[getCityCode(city,contryCode)] : {} }})
 
-                debugger
+                
                 const response = await axios.get(url)
                 
                 const allWeatherAux = getAllWeather(response, city, contryCode) 
