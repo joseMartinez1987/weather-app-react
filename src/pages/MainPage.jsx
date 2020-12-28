@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper'
 import { getCities } from './../utils/serviceCities'
 
 
-const MainPage = ({actions, data}) => {
+const MainPage = () => {
 
     const history = useHistory();
 
@@ -19,7 +19,7 @@ const MainPage = ({actions, data}) => {
     return (
         <AppFrame>
             <Paper elevation={10}>
-                <CityList cities={getCities()} onClickCity={onClickHandle} actions={actions} data={data}/>
+                <CityList cities={getCities()} onClickCity={onClickHandle}/>
             </Paper>
         </AppFrame>
     )
